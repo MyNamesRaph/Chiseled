@@ -1,0 +1,12 @@
+{
+  "itemGroup.chiseled.all": "Chisels",
+  "item.chiseled.wooden_chisel": "Wooden Chisel",
+  "item.chiseled.stone_chisel": "Stone Chisel",
+  "item.chiseled.iron_chisel": "Iron Chisel",
+  "item.chiseled.golden_chisel": "Golden Chisel",
+  "item.chiseled.diamond_chisel": "Diamond Chisel",
+  "item.chiseled.netherite_chisel": "Netherite Chisel",
+  "block.chiseled.chiseled_block": "Chiseled Block",
+  "tag.item.chiseled.chisels": "Chisels",
+  "tag.block.chiseled.mineable.chisel": "Mineable with chisels"
+}

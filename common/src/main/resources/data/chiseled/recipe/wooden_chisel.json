@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+        "  #",
+        " # ",
+        "/  "
+    ],
+    "key": {
+        "#": "#minecraft:wooden_tool_materials",
+        "/": "minecraft:stick"
+    },
+    "result": {
+        "id": "chiseled:wooden_chisel",
+        "count": 1
+    }
+}

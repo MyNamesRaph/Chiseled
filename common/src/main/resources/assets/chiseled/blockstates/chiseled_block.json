@@ -1,0 +1,68 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "top_north_west": true
+      },
+      "apply": {
+        "model": "chiseled:block/chiseled_block_multipart/top_north_west"
+      }
+    },
+    {
+      "when": {
+        "bottom_north_west": true
+      },
+      "apply": {
+        "model": "chiseled:block/chiseled_block_multipart/bottom_north_west"
+      }
+    },
+    {
+      "when": {
+        "top_south_west": true
+      },
+      "apply": {
+        "model": "chiseled:block/chiseled_block_multipart/top_south_west"
+      }
+    },
+    {
+      "when": {
+        "bottom_south_west": true
+      },
+      "apply": {
+        "model": "chiseled:block/chiseled_block_multipart/bottom_south_west"
+      }
+    },
+    {
+      "when": {
+        "top_north_east": true
+      },
+      "apply": {
+        "model": "chiseled:block/chiseled_block_multipart/top_north_east"
+      }
+    },
+    {
+      "when": {
+        "bottom_north_east": true
+      },
+      "apply": {
+        "model": "chiseled:block/chiseled_block_multipart/bottom_north_east"
+      }
+    },
+    {
+      "when": {
+        "top_south_east": true
+      },
+      "apply": {
+        "model": "chiseled:block/chiseled_block_multipart/top_south_east"
+      }
+    },
+    {
+      "when": {
+        "bottom_south_east": true
+      },
+      "apply": {
+        "model": "chiseled:block/chiseled_block_multipart/bottom_south_east"
+      }
+    }
+  ]
+}
