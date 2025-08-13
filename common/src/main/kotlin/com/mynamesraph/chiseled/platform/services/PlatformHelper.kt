@@ -3,7 +3,6 @@ package com.mynamesraph.chiseled.platform.services
 import com.mynamesraph.chiseled.registry.ChiseledBlocks
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.Block
 
 interface PlatformHelper {

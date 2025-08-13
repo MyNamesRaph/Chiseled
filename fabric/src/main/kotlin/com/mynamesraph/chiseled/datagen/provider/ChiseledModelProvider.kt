@@ -1,8 +1,6 @@
 package com.mynamesraph.chiseled.datagen.provider
 
-import com.mynamesraph.chiseled.registry.ChiseledBlocks
 import com.mynamesraph.chiseled.registry.ChiseledItems
-import com.mynamesraph.chiseled.registry.FabricBlocks
 import com.mynamesraph.chiseled.registry.FabricItems
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput

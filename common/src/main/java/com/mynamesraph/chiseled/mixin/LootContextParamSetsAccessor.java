@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(LootContextParamSets.class)
 public interface LootContextParamSetsAccessor {
     @Accessor("REGISTRY")
-    public static BiMap<ResourceLocation, ContextKeySet> getREGISTRY() {
+    static BiMap<ResourceLocation, ContextKeySet> getREGISTRY() {
         throw new AssertionError();
     }
 }

@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.phys.BlockHitResult
-import kotlin.math.abs
 
 /**
  * Calculates which corner of a block was hit from a BlockHitResult

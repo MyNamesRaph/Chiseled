@@ -1,6 +1,5 @@
 package com.mynamesraph.chiseled.rendering
 
-import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.ChiseledBlock
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier

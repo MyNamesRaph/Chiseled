@@ -3,7 +3,6 @@ package com.mynamesraph.chiseled.loot
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import com.mynamesraph.chiseled.registry.ChiseledLootContextParamSets
-import io.netty.util.Constant
 import net.minecraft.core.BlockPos
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries

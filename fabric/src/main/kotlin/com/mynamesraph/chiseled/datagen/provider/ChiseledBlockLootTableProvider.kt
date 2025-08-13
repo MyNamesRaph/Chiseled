@@ -1,7 +1,5 @@
 package com.mynamesraph.chiseled.datagen.provider
 
-import com.mynamesraph.chiseled.registry.ChiseledBlocks
-import com.mynamesraph.chiseled.registry.FabricBlocks
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.minecraft.core.HolderLookup

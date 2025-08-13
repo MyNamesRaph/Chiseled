@@ -1,7 +1,6 @@
 package com.mynamesraph.chiseled.rendering
 
 import com.mynamesraph.chiseled.ChiseledFabricClient
-import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBlockStateModel
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView
@@ -9,7 +8,6 @@ import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter
 import net.fabricmc.fabric.api.renderer.v1.mesh.ShadeMode
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper
 import net.fabricmc.fabric.api.util.TriState
-import net.fabricmc.fabric.impl.client.indigo.renderer.mesh.MutableQuadViewImpl
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.BlockModelPart

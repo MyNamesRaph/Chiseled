@@ -5,14 +5,12 @@ import com.mynamesraph.chiseled.block.BlockCorner
 import com.mynamesraph.chiseled.block.ChiseledBlock
 import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import com.mynamesraph.chiseled.directionFromPositionOnBlock
-import com.mynamesraph.chiseled.networking.ClientboundChiseledBlockPayload
 import com.mynamesraph.chiseled.networking.ServerboundChiseledBlockPayload
 import com.mynamesraph.chiseled.platform.Services
 import com.mynamesraph.chiseled.registry.ChiseledBlocks
 import com.mynamesraph.chiseled.tag.ChiseledTags
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.server.level.ServerPlayer
 import net.minecraft.tags.BlockTags
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attributes
@@ -21,7 +19,6 @@ import net.minecraft.world.item.ToolMaterial
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.phys.BlockHitResult
 
 class ChiselItem(material: ToolMaterial,attackDamage: Float,attackSpeed: Float, properties: Properties) :

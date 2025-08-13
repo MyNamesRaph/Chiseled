@@ -2,7 +2,6 @@ package com.mynamesraph.chiseled.registry
 
 import com.mynamesraph.chiseled.registry.data.item.ChiseledChiselItem
 import com.mynamesraph.chiseled.registry.data.item.IChiseledItem
-import net.minecraft.core.component.DataComponents
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ToolMaterial
 

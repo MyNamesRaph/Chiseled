@@ -17,15 +17,11 @@ import net.fabricmc.fabric.api.event.player.PlayerPickItemEvents
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.tags.BlockTags
-import net.minecraft.world.InteractionHand
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
-import org.slf4j.event.Level
 
 object ChiseledFabric : ModInitializer {
     override fun onInitialize() {
