@@ -26,7 +26,7 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class ChiseledBlock(properties: Properties) : Block(properties.dynamicShape().noOcclusion()), EntityBlock, SimpleWaterloggedBlock {
+class ChiseledBlock(properties: Properties) : Block(properties.dynamicShape().noOcclusion().forceSolidOn()), EntityBlock, SimpleWaterloggedBlock {
 
     companion object {
         val TOP_NORTH_WEST: BooleanProperty = BooleanProperty.create(BlockCorner.TOP_NORTH_WEST.cornerName)
