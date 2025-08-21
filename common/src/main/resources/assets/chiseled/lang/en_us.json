@@ -8,5 +8,10 @@
   "item.chiseled.netherite_chisel": "Netherite Chisel",
   "block.chiseled.chiseled_block": "Chiseled Block",
   "tag.item.chiseled.chisels": "Chisels",
-  "tag.block.chiseled.mineable.chisel": "Mineable with chisels"
+  "tag.block.chiseled.mineable.chisel": "Mineable with chisels",
+  "gamerule.limitChiselingToChiselingAreas": "Chiseling is limited to areas that allow chiseling",
+  "chiseled.warning.not_chiselable_area": "You are not allowed to chisel in this area!",
+  "chiseled.command.chiseled_set_area.true": "Area will now allow chiseling.",
+  "chiseled.command.chiseled_set_area.false": "Area will no longer allow chiseling."
+
 }

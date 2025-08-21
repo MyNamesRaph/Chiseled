@@ -16,10 +16,26 @@ dependencies {
 
     modImplementation(libs.flk)
 
+    modImplementation("maven.modrinth:area_lib:0.3.6+1.21.8")
+
     implementation("org.kodein.di:kodein-di-conf:7.26.1")
     include("org.kodein.di:kodein-di-conf:7.26.1")
     include("org.kodein.di:kodein-di:7.26.1")
     include("org.kodein.type:kaverit:2.10.0")
+}
+
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = uri("https://api.modrinth.com/maven")
+            }
+        }
+        filter {
+            includeGroup("maven.modrinth")
+        }
+    }
 }
 
 fabricApi {
