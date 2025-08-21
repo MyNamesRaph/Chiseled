@@ -1,6 +1,7 @@
 package com.mynamesraph.chiseled.rendering
 
 import com.mynamesraph.chiseled.ChiseledFabricClient
+import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBlockStateModel
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView
@@ -8,6 +9,7 @@ import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter
 import net.fabricmc.fabric.api.renderer.v1.mesh.ShadeMode
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper
 import net.fabricmc.fabric.api.util.TriState
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.BlockModelPart
@@ -16,6 +18,8 @@ import net.minecraft.client.renderer.chunk.ChunkSectionLayer
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.network.chat.Component
+import net.minecraft.util.CommonColors
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.Blocks
@@ -137,13 +141,34 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                             quad.value.lightEmission
                         )
 
-                        emitter.cullFace(cullFace)
-                        emitter.fromBakedQuad(newQuad)
-                        emitter.spriteBake(copiedSprites[quad.index], MutableQuadView.BAKE_LOCK_UV)
-                        if (isTranslucent) emitter.renderLayer(ChunkSectionLayer.TRANSLUCENT)
-                        emitter.ambientOcclusion(ao)
-                        emitter.shadeMode(ShadeMode.VANILLA)
-                        emitter.emit()
+                        try {
+                            emitter.cullFace(cullFace)
+                            emitter.fromBakedQuad(newQuad)
+                            emitter.spriteBake(copiedSprites[quad.index], MutableQuadView.BAKE_LOCK_UV)
+                            if (isTranslucent) emitter.renderLayer(ChunkSectionLayer.TRANSLUCENT)
+                            emitter.ambientOcclusion(ao)
+                            emitter.shadeMode(ShadeMode.VANILLA)
+                            emitter.emit()
+                        }
+                        catch (e: NullPointerException) {
+                            Constants.LOG.error("NullPointerException caught while rendering ChiseledBlock, please report immediately: ${e.message}")
+                            Constants.LOG.error("Exception rendering Quad:" +
+                                    " $newQuad from ${quad.value.vertices}," +
+                                    " ${copiedTints[quad.index]}," +
+                                    " ${quad.value.direction}," +
+                                    " ${copiedSprites[quad.index]}," +
+                                    " ${quad.value.shade}," +
+                                    " ${quad.value.lightEmission}." +
+                                    " ${if (FabricLoader.getInstance().isModLoaded("sodium")) "Sodium is installed!" else "Sodium is not installed!"}"
+                            )
+
+                            Minecraft.getInstance().player?.displayClientMessage(
+                                Component.literal(
+                                    "Chiseled: An exception was caught while rendering! Please report it immediately!"
+                                ).withColor(CommonColors.YELLOW),false
+                            )
+                        }
+
                     }
                 }
             }
