@@ -31,9 +31,9 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.tags.BlockTags
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.GameType
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
-import java.util.function.Supplier
 
 object ChiseledFabric : ModInitializer {
     override fun onInitialize() {
@@ -194,7 +194,9 @@ object ChiseledFabric : ModInitializer {
             if (be is ChiseledBlockEntity) {
 
                 if (be.cornerCount-1 <= 0) {
-                    spawnChiselingLoot(1,level,pos,player)
+                    if (player.gameMode.gameModeForPlayer != GameType.CREATIVE) {
+                        spawnChiselingLoot(1,level,pos,player)
+                    }
                     level.destroyBlock(pos,false)
                 }
                 else {
@@ -208,7 +210,9 @@ object ChiseledFabric : ModInitializer {
 
                     if (newBe is ChiseledBlockEntity) {
                         newBe.setCopiedState(be.copiedState)
-                        spawnChiselingLoot(1,level,pos,player)
+                        if (player.gameMode.gameModeForPlayer != GameType.CREATIVE) {
+                            spawnChiselingLoot(1,level,pos,player)
+                        }
                     }
                     else {
                         throw IllegalStateException("Chiseled Block at $pos did not have a ChiseledBlockEntity!")
@@ -238,7 +242,9 @@ object ChiseledFabric : ModInitializer {
 
             if (be is ChiseledBlockEntity) {
                 be.setCopiedState(oldState)
-                spawnChiselingLoot(1,level,pos,player)
+                if (player.gameMode.gameModeForPlayer != GameType.CREATIVE) {
+                    spawnChiselingLoot(1,level,pos,player)
+                }
                 level.sendBlockUpdated(pos,oldState,newState,Block.UPDATE_ALL)
             }
             else {
