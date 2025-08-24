@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ToolMaterial
 
 const val attackDamage = 0.5f
-const val attackSpeed = 6.0f
+const val attackSpeed = 0.0f
 
 enum class ChiseledItems(val item: IChiseledItem) {
      WOODEN_CHISEL(
