@@ -140,13 +140,13 @@ object ChiseledFabric : ModInitializer {
             }
         }
 
-        if (!player.abilities.mayBuild) {
+        /*if (!player.abilities.mayBuild) {
             Constants.LOG.warn(
                 "Received ${ServerboundChiseledBlockPayload::class.simpleName} from player ${player.humanReadable()}"
                 + " who cannot build!"
             )
             return
-        }
+        }*/
 
         if (payload.blockCornerOrdinal >= BlockCorner.entries.size) {
             Constants.LOG.warn(
