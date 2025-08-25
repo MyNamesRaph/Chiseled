@@ -46,6 +46,8 @@ class ChiseledBlock(properties: Properties) : Block(properties.dynamicShape().no
         val SHAPE_BOTTOM_NORTH_EAST: VoxelShape =  Shapes.box(0.5, 0.0, 0.0, 1.0, 0.5, 0.5)
         val SHAPE_TOP_SOUTH_EAST: VoxelShape = Shapes.box(0.5, 0.5, 0.5, 1.0, 1.0, 1.0)
         val SHAPE_BOTTOM_SOUTH_EAST: VoxelShape = Shapes.box(0.5, 0.0, 0.5, 1.0, 0.5, 1.0)
+
+        val shapeCache = hashMapOf<Int,VoxelShape>()
     }
 
     val defaultStateNoWater: BlockState = defaultBlockState().setValue(BlockStateProperties.WATERLOGGED,false)
@@ -78,26 +80,51 @@ class ChiseledBlock(properties: Properties) : Block(properties.dynamicShape().no
         context: CollisionContext
     ): VoxelShape {
 
-        var shape = Shapes.empty()
+        var bin: Int = 0b00000000
 
         if (blockState.getValue(TOP_NORTH_WEST))
-            shape = SHAPE_TOP_NORTH_WEST
+            bin = bin or 0b00000001
         if (blockState.getValue(BOTTOM_NORTH_WEST))
-            shape = Shapes.join(shape,SHAPE_BOTTOM_NORTH_WEST, BooleanOp.OR)
+            bin = bin or 0b00000010
         if (blockState.getValue(TOP_SOUTH_WEST))
-            shape = Shapes.join(shape,SHAPE_TOP_SOUTH_WEST, BooleanOp.OR)
+            bin = bin or 0b00000100
         if (blockState.getValue(BOTTOM_SOUTH_WEST))
-            shape = Shapes.join(shape,SHAPE_BOTTOM_SOUTH_WEST, BooleanOp.OR)
+            bin = bin or 0b00001000
         if (blockState.getValue(TOP_NORTH_EAST))
-            shape = Shapes.join(shape,SHAPE_TOP_NORTH_EAST, BooleanOp.OR)
+            bin = bin or 0b00010000
         if (blockState.getValue(BOTTOM_NORTH_EAST))
-            shape = Shapes.join(shape,SHAPE_BOTTOM_NORTH_EAST, BooleanOp.OR)
+            bin = bin or 0b00100000
         if (blockState.getValue(TOP_SOUTH_EAST))
-            shape = Shapes.join(shape,SHAPE_TOP_SOUTH_EAST, BooleanOp.OR)
+            bin = bin or 0b01000000
         if (blockState.getValue(BOTTOM_SOUTH_EAST))
-            shape = Shapes.join(shape,SHAPE_BOTTOM_SOUTH_EAST, BooleanOp.OR)
+            bin = bin or 0b10000000
 
-        return shape
+        return shapeCache.getOrElse(bin) {
+            var shape = Shapes.empty()
+
+            if (blockState.getValue(TOP_NORTH_WEST))
+                shape = SHAPE_TOP_NORTH_WEST
+            if (blockState.getValue(BOTTOM_NORTH_WEST))
+                shape = Shapes.join(shape,SHAPE_BOTTOM_NORTH_WEST, BooleanOp.OR)
+            if (blockState.getValue(TOP_SOUTH_WEST))
+                shape = Shapes.join(shape,SHAPE_TOP_SOUTH_WEST, BooleanOp.OR)
+            if (blockState.getValue(BOTTOM_SOUTH_WEST))
+                shape = Shapes.join(shape,SHAPE_BOTTOM_SOUTH_WEST, BooleanOp.OR)
+            if (blockState.getValue(TOP_NORTH_EAST))
+                shape = Shapes.join(shape,SHAPE_TOP_NORTH_EAST, BooleanOp.OR)
+            if (blockState.getValue(BOTTOM_NORTH_EAST))
+                shape = Shapes.join(shape,SHAPE_BOTTOM_NORTH_EAST, BooleanOp.OR)
+            if (blockState.getValue(TOP_SOUTH_EAST))
+                shape = Shapes.join(shape,SHAPE_TOP_SOUTH_EAST, BooleanOp.OR)
+            if (blockState.getValue(BOTTOM_SOUTH_EAST))
+                shape = Shapes.join(shape,SHAPE_BOTTOM_SOUTH_EAST, BooleanOp.OR)
+
+            shapeCache[bin] = shape
+            return shape
+        }
+
+
+
     }
 
 
