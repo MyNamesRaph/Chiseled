@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 @JvmRecord
 data class ServerboundChiseledBlockPayload(val blockPos: BlockPos, val blockCornerOrdinal: Byte): CustomPacketPayload {
@@ -16,7 +16,7 @@ data class ServerboundChiseledBlockPayload(val blockPos: BlockPos, val blockCorn
 
     companion object {
         val TYPE = CustomPacketPayload.Type<ServerboundChiseledBlockPayload>(
-            ResourceLocation.fromNamespaceAndPath(
+            Identifier.fromNamespaceAndPath(
                 Constants.MOD_ID,
                 "chiseled_block_server_sync"
             )

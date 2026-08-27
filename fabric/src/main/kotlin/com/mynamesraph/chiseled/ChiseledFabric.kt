@@ -16,8 +16,9 @@ import com.mynamesraph.chiseled.registry.FabricBlockEntities
 import com.mynamesraph.chiseled.registry.FabricBlocks
 import com.mynamesraph.chiseled.registry.FabricCreativeTabs
 import com.mynamesraph.chiseled.registry.FabricItems
+import dev.doublekekse.area_lib.AreaLib
 import dev.doublekekse.area_lib.command.argument.AreaArgument
-import dev.doublekekse.area_lib.data.AreaSavedData
+import dev.doublekekse.area_lib.component.SampledAreaComponentType
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.player.PlayerPickItemEvents
@@ -25,11 +26,14 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.commands.Commands
+import net.minecraft.commands.arguments.IdentifierArgument
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.server.permissions.Permissions
 import net.minecraft.tags.BlockTags
+import net.minecraft.util.Unit
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameType
 import net.minecraft.world.level.block.Block
@@ -59,11 +63,12 @@ object ChiseledFabric : ModInitializer {
 
             CommandRegistrationCallback.EVENT.register { dispatcher, registryAccess, environment ->
                 dispatcher.register(Commands.literal("chiseled").requires {
-                    it.hasPermission(2)
+                    //it.hasPermission(2)
+                    it.permissions().hasPermission(Permissions.COMMANDS_ADMIN)
                 }.then(Commands.literal("set")
                     .then(Commands.literal("area")
                     .then(Commands.argument(
-                        "id", AreaArgument.area()
+                        "id", IdentifierArgument.id()
                     ).then(Commands.argument("active", BoolArgumentType.bool()).executes {
                         val area = AreaArgument.getArea(it,"id")
                         val active = BoolArgumentType.getBool(it,"active")
@@ -72,7 +77,7 @@ object ChiseledFabric : ModInitializer {
                             area.put(
                                 it.source.server,
                                 ChiseledAreaComponents.ALLOW_CHISELING_AREA,
-                                AllowChiselingAreaComponent()
+                                Unit.INSTANCE
                             )
                         } else {
                             area.remove(
@@ -112,14 +117,14 @@ object ChiseledFabric : ModInitializer {
 
 
     fun registerClientboundPayloads() {
-        PayloadTypeRegistry.playS2C().register(
+        PayloadTypeRegistry.clientboundPlay().register(
             ClientboundChiseledBlockPayload.TYPE,
             ClientboundChiseledBlockPayload.STREAM_CODEC
         )
     }
 
     fun registerServerboundPayloads() {
-        PayloadTypeRegistry.playC2S().register(
+        PayloadTypeRegistry.serverboundPlay().register(
             ServerboundChiseledBlockPayload.TYPE,
             ServerboundChiseledBlockPayload.STREAM_CODEC
         )
@@ -135,7 +140,7 @@ object ChiseledFabric : ModInitializer {
 
         if (FabricLoader.getInstance().isModLoaded("area_lib")) {
             if (!isValidArea(level,pos)) {
-                player.displayClientMessage(Component.translatable("chiseled.warning.not_chiselable_area"),true)
+                player.sendSystemMessage(Component.translatable("chiseled.warning.not_chiselable_area"),true)
                 return
             }
         }
@@ -175,7 +180,7 @@ object ChiseledFabric : ModInitializer {
             return
         }
 
-        if (!player.canInteractWithBlock(pos, 1.0)) {
+        if (player.blockActionRestricted(level,pos,player.gameMode.gameModeForPlayer)) {
             Constants.LOG.warn(
                 malformedFromPlayer(
                     player,
@@ -254,8 +259,8 @@ object ChiseledFabric : ModInitializer {
     }
 
     fun isValidArea(level: ServerLevel, pos: BlockPos): Boolean {
-        if (level.gameRules.getBoolean(ChiseledAreaGamerules.LIMIT_CHISELING_TO_CHISELING_AREAS)) {
-            val areas = AreaSavedData.getServerData(level.server).findTrackedAreasContaining(level,pos.center)
+        if (level.gameRules.get(ChiseledAreaGamerules.LIMIT_CHISELING_TO_CHISELING_AREAS)) {
+            val areas = AreaLib.getSavedData(level.server).getSampledAreas(ChiseledAreaComponents.ALLOW_CHISELING_AREA,level,pos.center())
 
             for (area in areas) {
                 Constants.LOG.error(area.type.toString())

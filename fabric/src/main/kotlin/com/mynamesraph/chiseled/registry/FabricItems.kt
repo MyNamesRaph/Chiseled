@@ -7,14 +7,14 @@ import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 
 object FabricItems {
 
     fun register(chiseledItem: IChiseledItem): Item {
 
-        val location = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, chiseledItem.name)
+        val location = Identifier.fromNamespaceAndPath(Constants.MOD_ID, chiseledItem.name)
 
         val resourceKey = ResourceKey.create(Registries.ITEM,location)
 

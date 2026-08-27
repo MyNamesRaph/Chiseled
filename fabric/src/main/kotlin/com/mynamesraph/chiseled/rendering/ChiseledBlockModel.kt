@@ -1,19 +1,17 @@
 package com.mynamesraph.chiseled.rendering
 
+import com.mojang.blaze3d.platform.Transparency
 import com.mynamesraph.chiseled.ChiseledFabricClient
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBlockStateModel
-import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView
-import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter
-import net.fabricmc.fabric.api.renderer.v1.mesh.ShadeMode
-import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper
+import net.fabricmc.fabric.api.client.renderer.v1.mesh.MutableQuadView
+import net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadEmitter
+import net.fabricmc.fabric.api.client.renderer.v1.mesh.ShadeMode
+import net.fabricmc.fabric.api.client.renderer.v1.model.ModelHelper
 import net.fabricmc.fabric.api.util.TriState
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.block.model.BakedQuad
-import net.minecraft.client.renderer.block.model.BlockModelPart
-import net.minecraft.client.renderer.block.model.BlockStateModel
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.core.BlockPos
@@ -21,7 +19,11 @@ import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
 import net.minecraft.util.CommonColors
 import net.minecraft.util.RandomSource
-import net.minecraft.world.level.BlockAndTintGetter
+import net.minecraft.client.renderer.block.BlockAndTintGetter
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart
+import net.minecraft.client.resources.model.geometry.BakedQuad
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
@@ -33,19 +35,12 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
         wrapped = model
     }
 
-    override fun collectParts(
-        random: RandomSource,
-        parts: List<BlockModelPart>
-    ) {
+    override fun collectParts(random: RandomSource, parts: MutableList<BlockStateModelPart>) {
         super.collectParts(random, parts)
     }
 
-    override fun collectParts(random: RandomSource): List<BlockModelPart> {
-        return super.collectParts(random)
-    }
-
-    override fun particleIcon(): TextureAtlasSprite {
-        return super.particleIcon()
+    override fun particleMaterial(): Material.Baked {
+        return super.particleMaterial()
     }
 
     /**
@@ -64,9 +59,8 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
             val copiedState = be.copiedState
             val isTranslucent = !copiedState.isSolidRender
 
-
             //Constants.LOG.info("Copied block at (${pos.x}, ${pos.y}, ${pos.z}) : $copiedState")
-            val copiedSprite = Minecraft.getInstance().blockRenderer.getBlockModel(copiedState).particleIcon()
+            val copiedSprite = Minecraft.getInstance().modelManager.blockStateModelSet.get(copiedState).particleMaterial().sprite
             //Constants.LOG.info("Copied sprite at (${pos.x}, ${pos.y}, ${pos.z}) : $copiedSprite")
 
             // If something goes wrong the particle texture is used as fallback
@@ -90,9 +84,12 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                 -1
             )
 
-            val parts = this.collectParts(random)
+            val parts = mutableListOf<BlockStateModelPart>()
 
-            val copiedParts = Minecraft.getInstance().blockRenderer.getBlockModel(copiedState).collectParts(random)
+            this.collectParts(random,parts)
+
+            val copiedParts = mutableListOf<BlockStateModelPart>()
+            Minecraft.getInstance().modelManager.blockStateModelSet.get(copiedState).collectParts(random, copiedParts)
 
             //Constants.LOG.info("Number of parts: ${copiedParts.size}")
             for (copiedPart in copiedParts) {
@@ -107,13 +104,8 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                     for (quad in quads) {
                         //Constants.LOG.info("Texture: ${quad.sprite.contents().name()}")
                         //Constants.LOG.info("Tint: ${quad.tintIndex}")
-                        copiedSprites[i] = quad.sprite()
-                        if (copiedState.`is`(Blocks.GRASS_BLOCK) && !copiedState.getValue(BlockStateProperties.SNOWY)) {
-                            copiedTints[i] = ChiseledFabricClient.TintIndexOverrides.GRASS_BLOCK.tintIndex
-                        }
-                        else {
-                            copiedTints[i] = quad.tintIndex
-                        }
+                        copiedSprites[i] = quad.materialInfo.sprite
+                        copiedTints[i] = quad.materialInfo().tintIndex
                     }
                 }
             }
@@ -132,20 +124,39 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                     val quads: MutableList<BakedQuad> = part.getQuads(cullFace)
 
                     for (quad in quads.withIndex()) {
-                        val newQuad = BakedQuad(
-                            quad.value.vertices,
+                        val material = quad.value.materialInfo()
+                        val bakedMaterial = Material.Baked(copiedSprites[quad.index],isTranslucent)
+                        val newMaterial = BakedQuad.MaterialInfo.of(
+                            bakedMaterial,
+                            if (isTranslucent) {
+                                Transparency.TRANSPARENT_AND_TRANSLUCENT
+                            }
+                            else {
+                                Transparency.NONE
+                            },
                             copiedTints[quad.index],
+                            material.shade,
+                            material.lightEmission
+                        )
+
+                        val newQuad = BakedQuad(
+                            quad.value.position0(),
+                            quad.value.position1(),
+                            quad.value.position2(),
+                            quad.value.position3(),
+                            quad.value.packedUV0(),
+                            quad.value.packedUV1(),
+                            quad.value.packedUV2(),
+                            quad.value.packedUV3(),
                             quad.value.direction,
-                            copiedSprites[quad.index],
-                            quad.value.shade,
-                            quad.value.lightEmission
+                            newMaterial
                         )
 
                         try {
                             emitter.cullFace(cullFace)
                             emitter.fromBakedQuad(newQuad)
-                            emitter.spriteBake(copiedSprites[quad.index], MutableQuadView.BAKE_LOCK_UV)
-                            if (isTranslucent) emitter.renderLayer(ChunkSectionLayer.TRANSLUCENT)
+                            emitter.materialBake(bakedMaterial, MutableQuadView.BAKE_LOCK_UV)
+                            //if (isTranslucent) emitter. renderLayer(ChunkSectionLayer.TRANSLUCENT)
                             emitter.ambientOcclusion(ao)
                             emitter.shadeMode(ShadeMode.VANILLA)
                             emitter.emit()
@@ -153,19 +164,18 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                         catch (e: NullPointerException) {
                             Constants.LOG.error("NullPointerException caught while rendering ChiseledBlock, please report immediately: ${e.message}")
                             Constants.LOG.error("Exception rendering Quad:" +
-                                    " $newQuad from ${quad.value.vertices}," +
+                                    " $newQuad from ${quad.value.position0}, ${quad.value.position1}, ${quad.value.position2}, ${quad.value.position3}}," +
                                     " ${copiedTints[quad.index]}," +
                                     " ${quad.value.direction}," +
                                     " ${copiedSprites[quad.index]}," +
-                                    " ${quad.value.shade}," +
-                                    " ${quad.value.lightEmission}." +
+                                    " ${quad.value.materialInfo()}," +
                                     " ${if (FabricLoader.getInstance().isModLoaded("sodium")) "Sodium is installed!" else "Sodium is not installed!"}"
                             )
 
-                            Minecraft.getInstance().player?.displayClientMessage(
+                            Minecraft.getInstance().player?.sendSystemMessage(
                                 Component.literal(
                                     "Chiseled: An exception was caught while rendering! Please report it immediately!"
-                                ).withColor(CommonColors.YELLOW),false
+                                ).withColor(CommonColors.YELLOW)
                             )
                         }
 
@@ -187,16 +197,15 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
         return super.createGeometryKey(blockView, pos, state, random)
     }
 
-    override fun particleSprite(
-        blockView: BlockAndTintGetter,
+    override fun particleMaterial(
+        level: BlockAndTintGetter,
         pos: BlockPos,
         state: BlockState
-    ): TextureAtlasSprite {
-        val be = blockView.getBlockEntity(pos)
+    ): Material.Baked {
+        val be = level.getBlockEntity(pos)
         if (be is ChiseledBlockEntity) {
-            return Minecraft.getInstance().blockRenderer.getBlockModel(be.copiedState).particleSprite(blockView,pos,state)
+            return Minecraft.getInstance().modelManager.blockStateModelSet.get(be.copiedState).particleMaterial()
         }
-
-        return super.particleSprite(blockView, pos, state)
+        return super.particleMaterial(level, pos, state)
     }
 }

@@ -3,20 +3,16 @@ plugins {
     alias(libs.plugins.loom)
 }
 
-val modId: String by project
+val modId: String = project.property("modId") as String
 
 dependencies {
     minecraft(libs.minecraft)
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${libs.versions.parchmentMC.get()}:${libs.versions.parchment.get()}@zip")
-    })
-    modImplementation(libs.fabricLoader)
-    modImplementation(libs.fabricApi)
+    implementation(libs.fabricLoader)
+    implementation(libs.fabricApi)
 
-    modImplementation(libs.flk)
+    implementation(libs.flk)
 
-    modImplementation("maven.modrinth:area_lib:0.3.6+1.21.8")
+    compileOnly("maven.modrinth:area_lib:0.8.3+26.1")
 
     implementation("org.kodein.di:kodein-di-conf:7.26.1")
     include("org.kodein.di:kodein-di-conf:7.26.1")

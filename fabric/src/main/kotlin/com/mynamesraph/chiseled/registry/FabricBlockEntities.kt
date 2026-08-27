@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntit
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -38,7 +38,7 @@ object FabricBlockEntities {
         factory: FabricBlockEntityTypeBuilder.Factory<T>,
         vararg blocks: Block
     ) : BlockEntityType<T> {
-        val location = ResourceLocation.fromNamespaceAndPath(
+        val location = Identifier.fromNamespaceAndPath(
             com.mynamesraph.chiseled.Constants.MOD_ID,
             name
         )
