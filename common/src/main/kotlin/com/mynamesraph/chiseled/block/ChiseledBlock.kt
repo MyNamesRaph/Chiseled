@@ -149,9 +149,10 @@ class ChiseledBlock(properties: Properties) : Block(properties.dynamicShape().no
 
         if (be is ChiseledBlockEntity && player.getItemInHand(hand).`is`(Items.STICK)) {
             if (level.isClientSide) {
-                player.displayClientMessage(Component.literal("Client CopiedState: ${be.copiedState}"),false)
+                player.sendSystemMessage(Component.literal("Client CopiedState: ${be.copiedState}"))
+                player.sendSystemMessage(Component.literal("Client CopiedState: ${be.copiedState}"))
             } else {
-                player.displayClientMessage(Component.literal("Server CopiedState: ${be.copiedState}"),false)
+                player.sendSystemMessage(Component.literal("Server CopiedState: ${be.copiedState}"))
             }
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult)

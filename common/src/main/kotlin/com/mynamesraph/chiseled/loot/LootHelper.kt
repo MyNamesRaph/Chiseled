@@ -2,12 +2,13 @@ package com.mynamesraph.chiseled.loot
 
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
+import com.mynamesraph.chiseled.center
 import com.mynamesraph.chiseled.registry.ChiseledLootContextParamSets
 import net.minecraft.core.BlockPos
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.item.ItemEntity
@@ -28,7 +29,7 @@ fun spawnChiselingLoot(rolls: Int, level: ServerLevel, pos: BlockPos, player: Se
             val items = getChiselingDrops(pos,player.mainHandItem,state,be,level)
 
             for (item in items) {
-                val itemEntity = ItemEntity(level, pos.center.x, pos.center.y, pos.center.z,item)
+                val itemEntity = ItemEntity(level, pos.center().x, pos.center().y, pos.center().z,item)
                 itemEntity.setDefaultPickUpDelay()
                 level.addFreshEntity(itemEntity)
             }
@@ -51,7 +52,7 @@ fun getChiselingDrops(pos: BlockPos,tool: ItemStack, state: BlockState,blockEnti
         .create(ChiseledLootContextParamSets.CHISELING)
 
     val blockLocation = BuiltInRegistries.BLOCK.getKey(blockEntity.copiedState.block)
-    val lootTableLocation = ResourceLocation.fromNamespaceAndPath(
+    val lootTableLocation = Identifier.fromNamespaceAndPath(
         blockLocation.namespace,
         "chiseling/${blockLocation.path}"
     )

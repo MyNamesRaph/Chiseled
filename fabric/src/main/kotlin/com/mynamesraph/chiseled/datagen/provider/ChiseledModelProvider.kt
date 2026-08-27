@@ -3,12 +3,12 @@ package com.mynamesraph.chiseled.datagen.provider
 import com.mynamesraph.chiseled.registry.ChiseledItems
 import com.mynamesraph.chiseled.registry.FabricItems
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.client.data.models.BlockModelGenerators
 import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.model.ModelTemplates
 
-class ChiseledModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
+class ChiseledModelProvider(output: FabricPackOutput) : FabricModelProvider(output) {
     override fun generateBlockStateModels(generator: BlockModelGenerators) {
         //generator.createTrivialCube(FabricBlocks.map[ChiseledBlocks.CYANIDE_BLOCK]!!)
         //generator.createTrivialCube(FabricBlocks.map[ChiseledBlocks.CYANIDE_BLEND_BLOCK]!!)

@@ -7,7 +7,7 @@ import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
@@ -16,7 +16,7 @@ object FabricBlocks {
 
     fun register(chiseledBlock: IChiseledBlock): Block {
 
-        val location = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, chiseledBlock.name)
+        val location = Identifier.fromNamespaceAndPath(Constants.MOD_ID, chiseledBlock.name)
 
         val resourceKey = ResourceKey.create(Registries.BLOCK,location)
 
@@ -35,7 +35,7 @@ object FabricBlocks {
     }
 
     fun registerBlockItem(cyanideBlock: IChiseledBlock, block: Block): BlockItem {
-        val location = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, cyanideBlock.name)
+        val location = Identifier.fromNamespaceAndPath(Constants.MOD_ID, cyanideBlock.name)
 
         val resourceKey = ResourceKey.create(Registries.ITEM,location)
 

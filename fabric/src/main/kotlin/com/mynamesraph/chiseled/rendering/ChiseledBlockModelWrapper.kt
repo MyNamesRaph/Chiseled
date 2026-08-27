@@ -3,7 +3,7 @@ package com.mynamesraph.chiseled.rendering
 import com.mynamesraph.chiseled.block.ChiseledBlock
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier
-import net.minecraft.client.renderer.block.model.BlockStateModel
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel
 
 object ChiseledBlockModelWrapper : ModelModifier.AfterBakeBlock {
 
@@ -21,5 +21,6 @@ object ChiseledBlockModelWrapper : ModelModifier.AfterBakeBlock {
             return ChiseledBlockModel(model)
         }
 
-        return model    }
+        return model
+    }
 }

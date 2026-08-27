@@ -1,13 +1,16 @@
 package com.mynamesraph.chiseled.compat.arealib
 
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry
-import net.minecraft.world.level.GameRules
+import com.mynamesraph.chiseled.Constants
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder
+import net.minecraft.resources.Identifier
+import net.minecraft.world.level.gamerules.GameRule
+import net.minecraft.world.level.gamerules.GameRuleCategory
+
 
 object ChiseledAreaGamerules {
-    val LIMIT_CHISELING_TO_CHISELING_AREAS = GameRuleRegistry.register(
-        "limitChiselingToChiselingAreas",
-        GameRules.Category.PLAYER,
-        GameRuleFactory.createBooleanRule(true)
-    )
+    
+    val LIMIT_CHISELING_TO_CHISELING_AREAS: GameRule<Boolean> = GameRuleBuilder
+        .forBoolean(true)
+        .category(GameRuleCategory.PLAYER)
+        .buildAndRegister(Identifier.fromNamespaceAndPath(Constants.MOD_ID,"limitChiselingToChiselingAreas"))
 }
