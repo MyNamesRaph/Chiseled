@@ -105,12 +105,7 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                         //Constants.LOG.info("Texture: ${quad.sprite.contents().name()}")
                         //Constants.LOG.info("Tint: ${quad.tintIndex}")
                         copiedSprites[i] = quad.materialInfo.sprite
-                        if (copiedState.`is`(Blocks.GRASS_BLOCK) && !copiedState.getValue(BlockStateProperties.SNOWY)) {
-                            copiedTints[i] = ChiseledFabricClient.TintIndexOverrides.GRASS_BLOCK.tintIndex
-                        }
-                        else {
-                            copiedTints[i] = quad.materialInfo().tintIndex
-                        }
+                        copiedTints[i] = quad.materialInfo().tintIndex
                     }
                 }
             }
