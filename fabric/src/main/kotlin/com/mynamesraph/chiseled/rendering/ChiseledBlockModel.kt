@@ -59,7 +59,6 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
             val copiedState = be.copiedState
             val isTranslucent = !copiedState.isSolidRender
 
-
             //Constants.LOG.info("Copied block at (${pos.x}, ${pos.y}, ${pos.z}) : $copiedState")
             val copiedSprite = Minecraft.getInstance().modelManager.blockStateModelSet.get(copiedState).particleMaterial().sprite
             //Constants.LOG.info("Copied sprite at (${pos.x}, ${pos.y}, ${pos.z}) : $copiedSprite")
@@ -105,7 +104,7 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                     for (quad in quads) {
                         //Constants.LOG.info("Texture: ${quad.sprite.contents().name()}")
                         //Constants.LOG.info("Tint: ${quad.tintIndex}")
-                        copiedSprites[i] = quad.materialInfo().sprite
+                        copiedSprites[i] = quad.materialInfo.sprite
                         if (copiedState.`is`(Blocks.GRASS_BLOCK) && !copiedState.getValue(BlockStateProperties.SNOWY)) {
                             copiedTints[i] = ChiseledFabricClient.TintIndexOverrides.GRASS_BLOCK.tintIndex
                         }
@@ -131,8 +130,9 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
 
                     for (quad in quads.withIndex()) {
                         val material = quad.value.materialInfo()
+                        val bakedMaterial = Material.Baked(copiedSprites[quad.index],isTranslucent)
                         val newMaterial = BakedQuad.MaterialInfo.of(
-                            Material.Baked(copiedSprites[quad.index],isTranslucent),
+                            bakedMaterial,
                             if (isTranslucent) {
                                 Transparency.TRANSPARENT_AND_TRANSLUCENT
                             }
@@ -160,7 +160,7 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                         try {
                             emitter.cullFace(cullFace)
                             emitter.fromBakedQuad(newQuad)
-                            emitter.toBakedQuad(copiedSprites[quad.index])
+                            emitter.materialBake(bakedMaterial, MutableQuadView.BAKE_LOCK_UV)
                             //if (isTranslucent) emitter. renderLayer(ChunkSectionLayer.TRANSLUCENT)
                             emitter.ambientOcclusion(ao)
                             emitter.shadeMode(ShadeMode.VANILLA)
