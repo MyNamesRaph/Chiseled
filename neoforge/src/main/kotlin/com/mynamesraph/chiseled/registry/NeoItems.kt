@@ -4,7 +4,7 @@ import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.registry.data.item.ChiseledChiselItem
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
@@ -19,7 +19,7 @@ object NeoItems {
         Supplier {
             val resourceKey = ResourceKey.create(
                 Registries.ITEM,
-                ResourceLocation.fromNamespaceAndPath(
+                Identifier.fromNamespaceAndPath(
                     Constants.MOD_ID,
                     it.item.name
                 )
