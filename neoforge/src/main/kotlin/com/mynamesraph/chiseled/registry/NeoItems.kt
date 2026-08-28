@@ -3,8 +3,8 @@ package com.mynamesraph.chiseled.registry
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.registry.data.item.ChiseledChiselItem
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceKey
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier

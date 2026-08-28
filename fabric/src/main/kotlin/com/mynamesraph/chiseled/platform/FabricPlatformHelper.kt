@@ -1,6 +1,5 @@
 package com.mynamesraph.chiseled.platform
 
-import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import com.mynamesraph.chiseled.platform.services.PlatformHelper
 import com.mynamesraph.chiseled.registry.ChiseledBlockEntities
 import com.mynamesraph.chiseled.registry.ChiseledBlocks

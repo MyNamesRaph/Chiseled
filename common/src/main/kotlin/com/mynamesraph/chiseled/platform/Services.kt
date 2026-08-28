@@ -2,7 +2,7 @@ package com.mynamesraph.chiseled.platform
 
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.platform.services.PlatformHelper
-import java.util.ServiceLoader
+import java.util.*
 
 object Services {
     val PLATFORM = load(PlatformHelper::class.java)

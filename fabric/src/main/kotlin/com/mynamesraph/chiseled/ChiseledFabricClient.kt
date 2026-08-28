@@ -8,13 +8,11 @@ import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry
-import net.fabricmc.fabric.api.client.rendering.v1.ColorResolverRegistry
 import net.minecraft.client.Minecraft
 import net.minecraft.client.color.block.BlockTintSource
 import net.minecraft.client.renderer.block.BlockAndTintGetter
 import net.minecraft.core.BlockPos
 import net.minecraft.util.ARGB
-import net.minecraft.world.level.ColorResolver
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
 

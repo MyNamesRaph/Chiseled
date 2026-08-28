@@ -4,8 +4,8 @@ import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.registry.NeoItems.ITEMS
 import com.mynamesraph.chiseled.registry.data.block.ChiseledChiseledBlock
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceKey
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier

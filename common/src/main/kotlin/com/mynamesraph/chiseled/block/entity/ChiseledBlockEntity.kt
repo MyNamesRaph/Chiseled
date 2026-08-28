@@ -3,7 +3,6 @@ package com.mynamesraph.chiseled.block.entity
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.ChiseledBlock
 import com.mynamesraph.chiseled.platform.Services
-import com.mynamesraph.chiseled.platform.services.PlatformHelper
 import com.mynamesraph.chiseled.registry.ChiseledBlockEntities
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup

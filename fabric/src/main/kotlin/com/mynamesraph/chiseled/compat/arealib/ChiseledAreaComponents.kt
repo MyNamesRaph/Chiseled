@@ -1,6 +1,5 @@
 package com.mynamesraph.chiseled.compat.arealib
 
-import com.mynamesraph.chiseled.Constants
 import dev.doublekekse.area_lib.component.SampledAreaComponentType
 import dev.doublekekse.area_lib.registry.AreaComponentRegistry
 import net.minecraft.resources.Identifier
