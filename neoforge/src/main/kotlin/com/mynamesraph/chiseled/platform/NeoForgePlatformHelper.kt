@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.fml.ModList
 import net.neoforged.fml.loading.FMLLoader
+import net.neoforged.neoforge.client.network.ClientPacketDistributor
+import net.neoforged.neoforge.network.PacketDistributor
 
 class NeoForgePlatformHelper : PlatformHelper {
     override fun getPlatformName(): String {
@@ -30,13 +32,13 @@ class NeoForgePlatformHelper : PlatformHelper {
         player: ServerPlayer,
         payload: CustomPacketPayload
     ) {
-        TODO("Not yet implemented")
+        PacketDistributor.sendToPlayer(player,payload)
     }
 
     override fun sendServerboundPacket(
         payload: CustomPacketPayload
     ) {
-        TODO("Not yet implemented")
+        ClientPacketDistributor.sendToServer(payload)
     }
 
     override val blockMap: Map<ChiseledBlocks, Block>
