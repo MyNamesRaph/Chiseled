@@ -1,7 +1,6 @@
 package com.mynamesraph.chiseled.rendering
 
 import com.mojang.blaze3d.platform.Transparency
-import com.mynamesraph.chiseled.ChiseledFabricClient
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBlockStateModel
@@ -12,21 +11,17 @@ import net.fabricmc.fabric.api.client.renderer.v1.model.ModelHelper
 import net.fabricmc.fabric.api.util.TriState
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
-import net.minecraft.network.chat.Component
-import net.minecraft.util.CommonColors
-import net.minecraft.util.RandomSource
 import net.minecraft.client.renderer.block.BlockAndTintGetter
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel
 import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart
 import net.minecraft.client.resources.model.geometry.BakedQuad
 import net.minecraft.client.resources.model.sprite.Material
-import net.minecraft.world.level.block.Blocks
+import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
+import net.minecraft.network.chat.Component
+import net.minecraft.util.CommonColors
+import net.minecraft.util.RandomSource
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import java.util.function.Predicate
 
 class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {

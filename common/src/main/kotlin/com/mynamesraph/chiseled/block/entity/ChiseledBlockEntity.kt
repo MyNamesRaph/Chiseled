@@ -2,6 +2,7 @@ package com.mynamesraph.chiseled.block.entity
 
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.ChiseledBlock
+import com.mynamesraph.chiseled.platform.Services
 import com.mynamesraph.chiseled.registry.ChiseledBlockEntities
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
@@ -14,15 +15,13 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.storage.ValueInput
 import net.minecraft.world.level.storage.ValueOutput
-import org.kodein.di.direct
-import org.kodein.di.instance
 import kotlin.jvm.optionals.getOrElse
 
 class ChiseledBlockEntity(
     val pos: BlockPos,
     blockState: BlockState
 ): BlockEntity(
-    Constants.di.direct.instance(ChiseledBlockEntities.CHISELED_BLOCK_ENTITY),
+    Services.PLATFORM.blockEntityMap[ChiseledBlockEntities.CHISELED_BLOCK_ENTITY]!!,
     pos,
     blockState
 ) {

@@ -1,7 +1,7 @@
 package com.mynamesraph.chiseled.registry
 
-import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries

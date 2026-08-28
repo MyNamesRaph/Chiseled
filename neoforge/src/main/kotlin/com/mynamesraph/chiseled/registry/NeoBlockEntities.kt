@@ -8,8 +8,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
-import org.kodein.di.bind
-import org.kodein.di.singleton
 import java.util.function.Supplier
 
 object NeoBlockEntities {
@@ -29,14 +27,6 @@ object NeoBlockEntities {
                 )
             }
         )
-    }
-
-    init {
-        map.entries.forEach {
-            Constants.di.addConfig {
-                bind<BlockEntityType<*>>(it.key) {singleton { it.value.get() }}
-            }
-        }
     }
 
     fun register(eventBus: IEventBus) {
