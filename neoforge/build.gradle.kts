@@ -41,24 +41,11 @@ neoForge {
 }
 
 repositories {
-    flatDir {
-        dir("libs")
-    }
+
 }
 
 sourceSets.main.get().resources { srcDir("src/generated/resources") }
 
 dependencies {
     implementation(libs.kff)
-
-    compileOnly("org.kodein.di:kodein-di-conf:7.26.1")
-
-    // Manually patched jars to make them register as mods and add an Automatic-Module-Name to the manifest
-    val kodein = implementation("org.kodein.di:kodein-di-jvm:7.26.1-patch") {}
-    val kodeinConf = implementation("org.kodein.di:kodein-di-conf-jvm:7.26.1-patch") {}
-    val kaverit = implementation("org.kodein.type:kaverit-jvm:2.10.0-patch") {}
-
-    jarJar(kodein)
-    jarJar(kodeinConf)
-    jarJar(kaverit)
 }

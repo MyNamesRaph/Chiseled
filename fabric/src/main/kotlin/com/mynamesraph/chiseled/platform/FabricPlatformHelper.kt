@@ -1,7 +1,10 @@
 package com.mynamesraph.chiseled.platform
 
+import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import com.mynamesraph.chiseled.platform.services.PlatformHelper
+import com.mynamesraph.chiseled.registry.ChiseledBlockEntities
 import com.mynamesraph.chiseled.registry.ChiseledBlocks
+import com.mynamesraph.chiseled.registry.FabricBlockEntities
 import com.mynamesraph.chiseled.registry.FabricBlocks
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
@@ -9,6 +12,8 @@ import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.entity.BlockEntityType
 
 class FabricPlatformHelper() : PlatformHelper {
     override fun getPlatformName(): String {
@@ -39,5 +44,10 @@ class FabricPlatformHelper() : PlatformHelper {
     override val blockMap: Map<ChiseledBlocks, Block>
         get() {
             return FabricBlocks.map
+        }
+
+    override val blockEntityMap: Map<ChiseledBlockEntities, BlockEntityType<BlockEntity>>
+        get() {
+            return FabricBlockEntities.map
         }
 }

@@ -1,11 +1,15 @@
 package com.mynamesraph.chiseled.platform
 
 import com.mynamesraph.chiseled.platform.services.PlatformHelper
+import com.mynamesraph.chiseled.registry.ChiseledBlockEntities
 import com.mynamesraph.chiseled.registry.ChiseledBlocks
+import com.mynamesraph.chiseled.registry.NeoBlockEntities
 import com.mynamesraph.chiseled.registry.NeoBlocks
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.fml.ModList
 import net.neoforged.fml.loading.FMLLoader
 
@@ -19,7 +23,7 @@ class NeoForgePlatformHelper : PlatformHelper {
     }
 
     override fun isDevelopmentEnvironment(): Boolean {
-        return !FMLLoader.isProduction()
+        return !FMLLoader.getCurrent().isProduction
     }
 
     override fun sendClientboundPacket(
@@ -38,5 +42,10 @@ class NeoForgePlatformHelper : PlatformHelper {
     override val blockMap: Map<ChiseledBlocks, Block>
         get() {
             return NeoBlocks.map.mapValues { it.value.get() }
+        }
+
+    override val blockEntityMap: Map<ChiseledBlockEntities, BlockEntityType<BlockEntity>>
+        get() {
+            return NeoBlockEntities.map.mapValues { it.value.get() }
         }
 }

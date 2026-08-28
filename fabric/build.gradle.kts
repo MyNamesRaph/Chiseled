@@ -13,11 +13,6 @@ dependencies {
     implementation(libs.flk)
 
     compileOnly("maven.modrinth:area_lib:0.8.3+26.1")
-
-    implementation("org.kodein.di:kodein-di-conf:7.26.1")
-    include("org.kodein.di:kodein-di-conf:7.26.1")
-    include("org.kodein.di:kodein-di:7.26.1")
-    include("org.kodein.type:kaverit:2.10.0")
 }
 
 repositories {

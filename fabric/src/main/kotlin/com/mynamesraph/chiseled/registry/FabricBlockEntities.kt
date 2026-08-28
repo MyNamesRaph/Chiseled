@@ -9,8 +9,6 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import org.kodein.di.bind
-import org.kodein.di.singleton
 
 
 object FabricBlockEntities {
@@ -22,16 +20,6 @@ object FabricBlockEntities {
             *FabricBlocks.map.entries.filter { it.key in be.blockEntity.blocks }.map { it.value }.toTypedArray()
         )
     }
-
-    init {
-        map.entries.forEach {
-            com.mynamesraph.chiseled.Constants.di.addConfig {
-                bind<BlockEntityType<*>>(it.key) {singleton {it.value}}
-            }
-        }
-    }
-
-
 
     fun <T : BlockEntity> register(
         name: String,
