@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.moddev)
 }
 
-val modId: String by project
+val modId: String = project.property("modId") as String
 
 neoForge {
     version = libs.versions.neoforge.get()
@@ -14,10 +14,10 @@ neoForge {
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
-    parchment {
+    /*parchment {
         minecraftVersion = libs.versions.parchmentMC
         mappingsVersion = libs.versions.parchment
-    }
+    }*/
     runs {
         configureEach {
             systemProperty("neoforge.enabledGameTestNamespaces", modId)
