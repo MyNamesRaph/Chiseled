@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.moddev)
 }
 
-val modId: String by project
+val modId: String = project.property("modId") as String
 
 neoForge {
     version = libs.versions.neoforge.get()

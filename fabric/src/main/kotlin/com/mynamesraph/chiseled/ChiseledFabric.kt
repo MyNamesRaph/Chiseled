@@ -8,6 +8,7 @@ import com.mynamesraph.chiseled.registry.FabricBlockEntities
 import com.mynamesraph.chiseled.registry.FabricBlocks
 import com.mynamesraph.chiseled.registry.FabricCreativeTabs
 import com.mynamesraph.chiseled.registry.FabricItems
+import com.mynamesraph.chiseled.registry.FabricLootContextParamSets
 import dev.doublekekse.area_lib.command.argument.AreaArgument
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
@@ -22,6 +23,7 @@ object ChiseledFabric : ModInitializer {
     override fun onInitialize() {
         ChiseledCommon.init()
 
+        FabricLootContextParamSets
         FabricItems
         FabricBlocks
         FabricBlockEntities

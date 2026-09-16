@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chiseled:golden_chisel"
+        "recipes": "chiseled:golden_chisel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

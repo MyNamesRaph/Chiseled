@@ -3,13 +3,16 @@ package com.mynamesraph.chiseled.platform
 import com.mynamesraph.chiseled.platform.services.PlatformHelper
 import com.mynamesraph.chiseled.registry.ChiseledBlockEntities
 import com.mynamesraph.chiseled.registry.ChiseledBlocks
+import com.mynamesraph.chiseled.registry.ChiseledLootContextParamSets
 import com.mynamesraph.chiseled.registry.FabricBlockEntities
 import com.mynamesraph.chiseled.registry.FabricBlocks
+import com.mynamesraph.chiseled.registry.FabricLootContextParamSets
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.context.ContextKeySet
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -48,5 +51,10 @@ class FabricPlatformHelper() : PlatformHelper {
     override val blockEntityMap: Map<ChiseledBlockEntities, BlockEntityType<BlockEntity>>
         get() {
             return FabricBlockEntities.map
+        }
+
+    override val contextKeySetMap: Map<ChiseledLootContextParamSets, ContextKeySet>
+        get() {
+            return FabricLootContextParamSets.map
         }
 }

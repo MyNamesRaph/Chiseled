@@ -2,8 +2,10 @@ package com.mynamesraph.chiseled.platform.services
 
 import com.mynamesraph.chiseled.registry.ChiseledBlockEntities
 import com.mynamesraph.chiseled.registry.ChiseledBlocks
+import com.mynamesraph.chiseled.registry.ChiseledLootContextParamSets
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.context.ContextKeySet
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -46,4 +48,5 @@ interface PlatformHelper {
 
     val blockMap: Map<ChiseledBlocks, Block>
     val blockEntityMap: Map<ChiseledBlockEntities, BlockEntityType<BlockEntity>>
+    val contextKeySetMap: Map<ChiseledLootContextParamSets, ContextKeySet>
 }
