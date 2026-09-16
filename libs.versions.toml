@@ -8,6 +8,11 @@ dokka = "1.9.20"
 minecraft = "26.3"
 minecraftRange = "[26.3, 27.1)"
 
+# The version of ParchmentMC that is used, see https://parchmentmc.org/docs/getting-started#choose-a-version for new versions
+parchment = "2025.12.20"
+parchmentMC = "1.21.11"
+
+
 neoforge = "26.3.0.1-beta"
 neoforgeRange = "[26.3, 26.4)"
 ## This is the version of minecraft that the 'common' project uses, you can find a list of all versions here

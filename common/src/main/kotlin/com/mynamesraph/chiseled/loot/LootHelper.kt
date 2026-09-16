@@ -3,6 +3,7 @@ package com.mynamesraph.chiseled.loot
 import com.mynamesraph.chiseled.Constants
 import com.mynamesraph.chiseled.block.entity.ChiseledBlockEntity
 import com.mynamesraph.chiseled.center
+import com.mynamesraph.chiseled.platform.Services
 import com.mynamesraph.chiseled.registry.ChiseledLootContextParamSets
 import net.minecraft.core.BlockPos
 import net.minecraft.core.registries.BuiltInRegistries
@@ -49,7 +50,7 @@ fun getChiselingDrops(pos: BlockPos,tool: ItemStack, state: BlockState,blockEnti
         .withParameter(LootContextParams.TOOL,tool)
         .withParameter(LootContextParams.BLOCK_STATE, state)
         .withParameter(LootContextParams.BLOCK_ENTITY, blockEntity)
-        .create(ChiseledLootContextParamSets.CHISELING)
+        .create(Services.PLATFORM.contextKeySetMap[ChiseledLootContextParamSets.CHISELING]!!)
 
     val blockLocation = BuiltInRegistries.BLOCK.getKey(blockEntity.copiedState.block)
     val lootTableLocation = Identifier.fromNamespaceAndPath(

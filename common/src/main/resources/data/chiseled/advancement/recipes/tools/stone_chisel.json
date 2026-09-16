@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chiseled:stone_chisel"
+        "recipes": "chiseled:stone_chisel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

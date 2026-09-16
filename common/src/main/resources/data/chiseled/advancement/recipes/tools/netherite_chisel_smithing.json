@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chiseled:netherite_chisel_smithing"
+        "recipes": "chiseled:netherite_chisel_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

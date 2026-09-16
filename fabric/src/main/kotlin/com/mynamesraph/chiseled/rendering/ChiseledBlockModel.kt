@@ -130,7 +130,7 @@ class ChiseledBlockModel(model: BlockStateModel): WrapperBlockStateModel() {
                                 Transparency.NONE
                             },
                             copiedTints[quad.index],
-                            material.shade,
+                            material.shadeDirectionOverride,
                             material.lightEmission
                         )
 

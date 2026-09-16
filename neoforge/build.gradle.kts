@@ -14,10 +14,10 @@ neoForge {
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
-    /*parchment {
+    parchment {
         minecraftVersion = libs.versions.parchmentMC
         mappingsVersion = libs.versions.parchment
-    }*/
+    }
     runs {
         configureEach {
             systemProperty("neoforge.enabledGameTestNamespaces", modId)
